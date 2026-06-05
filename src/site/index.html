@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vocabulary Browser</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Static RDF browser</p>
+          <h1>Vocabulary Browser</h1>
+        </div>
+        <div class="stats" id="stats" aria-live="polite"></div>
+      </header>
+
+      <section class="toolbar" aria-label="Search controls">
+        <label class="control">
+          <span>Table</span>
+          <select id="tableSelect"></select>
+        </label>
+        <label class="control search-control">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Search labels, aliases, groups">
+        </label>
+      </section>
+
+      <section class="results-head">
+        <h2 id="tableTitle">Results</h2>
+        <p id="resultCount" aria-live="polite"></p>
+      </section>
+
+      <div class="table-wrap">
+        <table>
+          <thead id="tableHead"></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

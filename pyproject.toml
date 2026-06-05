@@ -1,0 +1,14 @@
+[project]
+name = "serves-me-right"
+version = "0.0.1"
+description = "Static browser for a Turtle knowledge graph."
+requires-python = ">=3.12"
+dependencies = [
+    "rdflib>=7.1.4",
+]
+
+[project.scripts]
+build-site = "scripts.build_site:main"
+
+[tool.uv]
+package = false
