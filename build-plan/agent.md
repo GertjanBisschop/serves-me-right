@@ -25,6 +25,7 @@ config/ui-shapes.ttl
 - `scripts/build_site.py` parses all Turtle files, reads the UI shape, and emits `dist/assets/catalog.json`.
 - `src/site/` contains a vanilla JS browser with table selection, text search, and result rendering.
 - `.github/workflows/pages.yml` builds the site and deploys `dist/` to GitHub Pages.
+- Tables can include hierarchy metadata, and the browser can switch between table and hierarchy views when hierarchy is enabled.
 
 ## SHACL UI Schema Convention
 
@@ -42,6 +43,9 @@ Current matching semantics:
 - A subject matches a shape when it has `rdf:type sh:targetClass`.
 - A subject also matches when it has `rdfs:subClassOf sh:targetClass`.
 - Blank nodes are excluded from top-level rows.
+- Prefixes are collected from the data and shape graphs; there is no assumed single base namespace.
+- `ui:hierarchyEnabled true` enables hierarchy mode and requires `ui:hierarchyPath`, which selects the parent predicate such as `rdfs:subClassOf` or `skos:broader`.
+- `ui:hierarchyEnabled false` forces a table-only view.
 
 ## Design Decisions To Revisit
 
@@ -53,6 +57,7 @@ Current matching semantics:
 ## Next Iterations
 
 1. Add detail pages or expandable rows for each entity.
-2. Add richer renderers for URI links, identifiers, language-tagged labels, and nested values.
-3. Add tests for the build output and shape parsing.
-4. Add optional JSON-LD output if another consumer needs framed or flattened graph data.
+2. Improve hierarchy navigation with collapse state, subtree counts, and direct filters.
+3. Add richer renderers for URI links, identifiers, language-tagged labels, and nested values.
+4. Add tests for the build output and shape parsing.
+5. Add optional JSON-LD output if another consumer needs framed or flattened graph data.

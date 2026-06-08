@@ -80,6 +80,10 @@ uvx --from git+https://github.com/YOUR-ORG/serves-me-right serves-me-right-build
 
 `--data-dir` can be passed more than once and is searched recursively for `.ttl` files. The consuming repository owns its `ui-shapes.ttl`; each `sh:NodeShape` becomes one table, and `sh:targetClass` selects the class serialized into that table.
 
+The builder does not assume one base namespace. Prefixes declared across the input Turtle files and UI shapes are preserved in the generated catalog; terms from undeclared namespaces fall back to full IRIs.
+
+Rows can also be serialized as a hierarchy. Enable this with `ui:hierarchyEnabled true` and set the parent predicate with `ui:hierarchyPath`, for example `ui:hierarchyPath rdfs:subClassOf` or `ui:hierarchyPath skos:broader`. An explicit `ui:hierarchyPath` also enables hierarchy when `ui:hierarchyEnabled` is omitted. Set `ui:hierarchyEnabled false` to force a table-only view. If `ui:hierarchyEnabled true` is set without `ui:hierarchyPath`, the build fails with an explanatory error.
+
 The generated `dist/` directory can be uploaded directly with GitHub Pages artifact deployment. You do not need a `gh-pages` source branch.
 
 Example Pages workflow step:
