@@ -57,4 +57,3 @@ Current matching semantics:
 2. Add richer renderers for URI links, identifiers, language-tagged labels, and nested values.
 3. Add tests for the build output and shape parsing.
 4. Add optional JSON-LD output if another consumer needs framed or flattened graph data.
-5. Tune GitHub Pages settings after the repository URL and Pages source are confirmed.

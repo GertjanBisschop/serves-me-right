@@ -1,5 +1,19 @@
+import Fuse from "./vendor/fuse.basic.min.mjs";
+
+const FUSE_OPTIONS = {
+  includeScore: true,
+  ignoreLocation: true,
+  threshold: 0.35,
+  keys: [
+    { name: "label", weight: 0.45 },
+    { name: "curie", weight: 0.25 },
+    { name: "searchText", weight: 0.3 },
+  ],
+};
+
 const state = {
   catalog: null,
+  searchIndexes: [],
   tableIndex: 0,
   query: "",
 };
@@ -22,6 +36,7 @@ const catalog = await fetch("./assets/catalog.json").then((response) => {
 });
 
 state.catalog = catalog;
+state.searchIndexes = catalog.tables.map((table) => new Fuse(table.rows, FUSE_OPTIONS));
 boot();
 
 function boot() {
@@ -42,7 +57,7 @@ function boot() {
   });
 
   els.searchInput.addEventListener("input", () => {
-    state.query = els.searchInput.value.trim().toLowerCase();
+    state.query = els.searchInput.value.trim();
     render();
   });
 
@@ -74,7 +89,7 @@ function filteredRows(table) {
   if (!state.query) {
     return table.rows;
   }
-  return table.rows.filter((row) => row.searchText.includes(state.query));
+  return state.searchIndexes[state.tableIndex].search(state.query).map((result) => result.item);
 }
 
 function headerRow(table) {
