@@ -30,7 +30,7 @@ jobs:
           python-version: "3.12"
 
       - name: Build site
-        run: uv run python -m scripts.build_site
+        run: uv run serves-me-right-build
 
       - name: Configure Pages
         uses: actions/configure-pages@v6

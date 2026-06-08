@@ -23,6 +23,7 @@ const state = {
 
 const els = {
   stats: document.querySelector("#stats"),
+  siteTitle: document.querySelector("h1"),
   tableSelect: document.querySelector("#tableSelect"),
   searchInput: document.querySelector("#searchInput"),
   tableTitle: document.querySelector("#tableTitle"),
@@ -38,11 +39,18 @@ const catalog = await fetch("./assets/catalog.json").then((response) => {
   return response.json();
 });
 
+const siteConfig = await fetch("./assets/site-config.json")
+  .then((response) => (response.ok ? response.json() : {}))
+  .catch(() => ({}));
+
 state.catalog = catalog;
 state.searchIndexes = catalog.tables.map((table) => new Fuse(table.rows, FUSE_OPTIONS));
 boot();
 
 function boot() {
+  const title = siteConfig.title || "Vocabulary Browser";
+  document.title = title;
+  els.siteTitle.textContent = title;
   els.stats.textContent = `${catalog.meta.sourceFiles} files | ${catalog.meta.triples} triples`;
 
   els.tableSelect.replaceChildren(
