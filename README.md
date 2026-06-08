@@ -53,7 +53,7 @@ python3 -m http.server 8080 --directory dist
 - `config/ui-shapes.ttl`: controls which RDF classes, predicates, table labels, column order, and search fields are exposed.
 - `scripts/build_site.py`: preprocessing script that builds `dist/assets/catalog.json`.
 - `src/site/`: static HTML, CSS, and JavaScript copied into `dist/`.
-- `src/site/vendor/fuse.basic.min.mjs`: vendored Fuse.js browser module used for client-side fuzzy search.
+- `src/site/vendor/fuse.min.mjs`: vendored Fuse.js browser module used for client-side fuzzy search.
 - `.github/workflows/pages.yml`: GitHub Pages deployment workflow.
 - `build-plan/agent.md`: design notes and next iteration plan.
 

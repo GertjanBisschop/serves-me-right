@@ -45,7 +45,6 @@ Current matching semantics:
 
 ## Design Decisions To Revisit
 
-- Whether search should remain simple substring matching or use a client-side search library.
 - Whether large data growth requires chunked JSON or per-table artifacts instead of one `catalog.json`.
 - How to render nested blank-node structures such as `pehterms:hasContextAlias`.
 - Whether `skos:exactMatch` should be displayed as compact CURIEs, full links, or grouped identifier chips.

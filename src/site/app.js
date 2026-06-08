@@ -1,14 +1,17 @@
-import Fuse from "./vendor/fuse.basic.min.mjs";
+import Fuse from "./vendor/fuse.min.mjs";
+
+const SEARCH_KEYS = [
+  { name: "label", weight: 0.45 },
+  { name: "curie", weight: 0.25 },
+  { name: "searchText", weight: 0.3 },
+];
 
 const FUSE_OPTIONS = {
   includeScore: true,
   ignoreLocation: true,
   threshold: 0.35,
-  keys: [
-    { name: "label", weight: 0.45 },
-    { name: "curie", weight: 0.25 },
-    { name: "searchText", weight: 0.3 },
-  ],
+  useExtendedSearch: true,
+  keys: SEARCH_KEYS,
 };
 
 const state = {
@@ -89,7 +92,23 @@ function filteredRows(table) {
   if (!state.query) {
     return table.rows;
   }
-  return state.searchIndexes[state.tableIndex].search(state.query).map((result) => result.item);
+  return state.searchIndexes[state.tableIndex]
+    .search(searchQuery(state.query))
+    .map((result) => result.item);
+}
+
+function searchQuery(query) {
+  const tokens = query.split(/\s+/).filter(Boolean);
+
+  if (tokens.length === 1) {
+    return tokens[0];
+  }
+
+  return {
+    $and: tokens.map((token) => ({
+      $or: SEARCH_KEYS.map((key) => ({ [key.name]: token })),
+    })),
+  };
 }
 
 function headerRow(table) {
