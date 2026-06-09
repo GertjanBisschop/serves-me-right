@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vocabulary Browser</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
@@ -21,6 +22,13 @@
           <span>Table</span>
           <select id="tableSelect"></select>
         </label>
+        <fieldset class="control mode-control">
+          <legend>View</legend>
+          <div class="mode-toggle" aria-label="View mode">
+            <button type="button" class="mode-button is-active" data-view-mode="table" aria-pressed="true">Table</button>
+            <button type="button" class="mode-button" data-view-mode="hierarchy" aria-pressed="false">Hierarchy</button>
+          </div>
+        </fieldset>
         <label class="control search-control">
           <span>Search</span>
           <input id="searchInput" type="search" placeholder="Search labels, aliases, groups">
@@ -38,6 +46,7 @@
           <tbody id="tableBody"></tbody>
         </table>
       </div>
+      <div class="hierarchy-wrap" id="hierarchyWrap" hidden></div>
     </main>
 
     <script type="module" src="./app.js"></script>

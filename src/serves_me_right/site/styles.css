@@ -87,10 +87,51 @@ h2 {
   flex: 1;
 }
 
-.control span {
+.control span,
+.control legend {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 650;
+}
+
+.mode-control {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.mode-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(96px, 1fr));
+  min-height: 44px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+}
+
+.mode-button {
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mode-button:last-child {
+  border-right: 0;
+}
+
+.mode-button.is-active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.mode-button:focus {
+  outline: 3px solid color-mix(in srgb, var(--focus) 35%, transparent);
+  outline-offset: -3px;
 }
 
 select,
@@ -121,6 +162,11 @@ input:focus {
   border-radius: 8px;
   background: var(--panel);
   box-shadow: 0 10px 30px rgba(30, 36, 38, 0.06);
+}
+
+.table-wrap[hidden],
+.hierarchy-wrap[hidden] {
+  display: none;
 }
 
 table {
@@ -166,6 +212,112 @@ a {
   text-align: center;
 }
 
+.hierarchy-wrap {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 10px 30px rgba(30, 36, 38, 0.06);
+}
+
+.hierarchy-tree,
+.hierarchy-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hierarchy-tree {
+  padding: 8px 0;
+}
+
+.hierarchy-node {
+  margin: 0;
+}
+
+.hierarchy-children {
+  border-left: 1px solid var(--line);
+  margin-left: 22px;
+}
+
+.hierarchy-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 9px 14px 9px calc(14px + min(var(--depth), 8) * 10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.hierarchy-node:last-child > .hierarchy-row {
+  border-bottom: 0;
+}
+
+.hierarchy-node.is-match > .hierarchy-row {
+  background: color-mix(in srgb, var(--accent-soft) 65%, #ffffff);
+}
+
+.hierarchy-label {
+  flex: 1;
+  min-width: 0;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.hierarchy-toggle,
+.hierarchy-toggle-spacer {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.hierarchy-toggle {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #ffffff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.hierarchy-toggle:hover,
+.hierarchy-toggle:focus {
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: 3px solid color-mix(in srgb, var(--focus) 25%, transparent);
+}
+
+.copy-button {
+  flex: 0 0 auto;
+  min-height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #ffffff;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  padding: 0 9px;
+  cursor: pointer;
+}
+
+.copy-button:hover,
+.copy-button:focus {
+  border-color: var(--accent);
+  outline: 3px solid color-mix(in srgb, var(--focus) 25%, transparent);
+}
+
+.empty-state {
+  padding: 24px;
+  color: var(--muted);
+  font-weight: 650;
+}
+
 @media (max-width: 760px) {
   .shell {
     width: min(100vw - 20px, 1440px);
@@ -187,4 +339,22 @@ a {
   .control {
     min-width: 0;
   }
+
+  .mode-toggle {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hierarchy-row {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    gap: 3px;
+    padding-left: 12px;
+  }
+
+}
+
+.clipboard-fallback {
+  position: fixed;
+  left: -9999px;
+  top: 0;
 }
